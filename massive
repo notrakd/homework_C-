@@ -1,0 +1,46 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    srand(time(0));
+    const unsigned N = 30;
+    int arr[N];
+
+    for (int i = 0; i < N; i++) {
+        arr[i] = rand() % 10;
+        cout << arr[i] << ' ';
+    }
+    cout << endl;
+
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    int maxSum = 0;
+
+    for (int i = 0; i < N; i++) {
+        if (arr[i] >= 7 && arr[i] <= 9) {
+            a++;
+            c += arr[i];
+
+            if (a > b) {
+                b = a;
+                maxSum = c;
+            }
+        }
+        else {
+            a = 0;
+            c = 0;
+        }
+    }
+
+    if (b > 0) {
+        double q = (double)maxSum / b;
+        cout  << c << endl;
+        cout  << q << endl;
+    }
+    else {
+        cout << endl;
+    }
+
+    return 0;
+}
