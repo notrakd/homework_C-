@@ -1,0 +1,35 @@
+#include <iostream>
+using namespace std;
+
+
+int dod(int a, int b)
+{
+	return a + b;
+}
+
+int min(int c, int f)
+{
+	return c - f;
+}
+
+int multiplication(int q, int w)
+{
+	return q * w;
+}
+
+
+int main()
+{
+	int a, b;
+	cin >> a >> b;
+	cout << "dodavannya" << ' ' << dod(a, b) << endl;
+
+	int c, f;
+	cin >> c >> f;
+	cout << "vidnimannya" << ' ' << min(c, f) << endl;
+
+
+	int q, w;
+	cin >> q >> w;
+	cout << "Mnojennya" << ' ' << multiplication(q, w) << endl;
+}
