@@ -1,0 +1,17 @@
+#include <iostream>
+using namespace std;
+
+double euroToHryvnia(double a)
+{
+	double euro = a / 50.9;
+	cout << euro;
+	return euro;
+}
+
+
+int main()
+{
+	double a;
+	cin >> a;
+	euroToHryvnia(a);
+}
