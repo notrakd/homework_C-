@@ -1,0 +1,26 @@
+#include <iostream>
+#include "header.h"
+using namespace std;
+
+int main()
+{
+    int number;
+    cin >> number;
+    cout << nums(number) << endl;
+    return 0;
+}
+
+
+#pragma once
+
+int nums(int a)
+{
+    if (a <= 99)
+    {
+        return 0;
+    }
+    else
+    {
+        return a / 100;
+    }
+}
