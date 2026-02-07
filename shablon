@@ -1,0 +1,48 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include "Header.h"
+using namespace std;
+
+int main()
+{
+
+	const int SIZE = 10;
+	long int arr[SIZE] = {};
+
+	srand(time(0));
+
+	for (int i = 0; i < SIZE; i++)
+	{
+		arr[i] = rand() % 4 + 1;
+	}
+
+	for (int i = 0; i < SIZE; i++)
+	{
+		cout << arr[i] << ' ';
+	}
+	cout << endl;
+
+	cout << "The multiplication of all elements in the array: " << arrayMultiplication(arr, SIZE) << endl;
+
+    return 0;
+}
+
+
+
+#pragma once
+#include <iostream>
+using namespace std;
+
+template <typename T>
+T arrayMultiplic(T arr[], int SIZE)
+{
+    T product = T(1);
+
+    for (int i = 0; i < SIZE; i++)
+    {
+        product *= arr[i];
+    }
+
+    return product;
+}
