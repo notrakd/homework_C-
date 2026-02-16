@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+#include "Header.h"
+
+int main()
+{
+	//int const N = 5;
+	//int arr[N] = { 1, 4, 6, 7, 8 };
+	//
+	//cout << getSum(arr, N);
+
+	int const N = 10;
+	int arr[N] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+	int dob = 1;
+
+	dobutok(arr, N, &dob);
+	cout << dob;
+}
+
+
+#pragma once
+#include <iostream>
+using namespace std;
+
+//int getSum(int* arr, int const N)
+//{
+//	int sum = 0;
+//	for (int i = 0; i < N; i++)
+//	{
+//		sum += *(arr + i);
+//	}
+//	return sum;
+//}
+
+void dobutok (int* arr, int const N, int* mult)
+{
+	for (int i = 0; i < N; i++)
+	{
+		*mult *= *(arr + i);
+	}
+}
