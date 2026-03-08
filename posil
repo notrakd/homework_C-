@@ -1,0 +1,57 @@
+#include <iostream>
+#include "header.h"
+using namespace std;
+
+int main() {
+    int size = 8;
+
+    int* arr = new int[size]{3, 4, 7, 0, 8, 5, 2, 1};
+
+    int newSize;
+    int* newArr = createNewArray(arr, size, newSize);
+
+    cout << "nes mass:\n";
+    for (int i = 0; i < newSize; i++) {
+        cout << newArr[i] << " ";
+    }
+
+    delete[] arr;
+    delete[] newArr;
+
+    return 0;
+}
+
+
+
+
+#pragma once
+#include <iostream>
+using namespace std;
+
+int elements(int* arr, int size) {
+    int count = 0;
+
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0 || arr[i] == 0) {
+            count++;
+        }
+    }
+
+    return count;
+}
+
+int* createNewArray(int* arr, int size, int& newSize) {
+    newSize = elements(arr, size);
+
+    int* newArr = new int[newSize];
+
+    int j = 0;
+    for (int i = 0; i < size; i++) {
+        if (arr[i] % 2 != 0 || arr[i] == 0) {
+            newArr[j] = arr[i];
+            j++;
+        }
+    }
+
+    return newArr;
+}
