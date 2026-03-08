@@ -1,0 +1,71 @@
+#pragma once
+#include <iostream>
+using namespace std;
+
+int countEven(const int* arr, int size) {
+    int count = 0;
+    for (int i = 0; i < size; i++)
+        if (arr[i] % 2 == 0)
+            count++;
+    return count;
+}
+
+void fill(const int* arr, int size, int* result, int& pos) {
+    for (int i = 0; i < size; i++)
+        if (arr[i] % 2 == 0)
+            result[pos++] = arr[i];
+}
+
+int* mergeEven(const int* arr1, int size1,
+               const int* arr2, int size2,
+               int& resultSize) {
+
+    resultSize = countEven(arr1, size1) + countEven(arr2, size2);
+
+    if (resultSize == 0)
+        return nullptr;
+
+    int* result = new int[resultSize];
+    int pos = 0;
+
+    fill(arr1, size1, result, pos);
+    fill(arr2, size2, result, pos);
+
+    return result;
+}
+
+void printArray(const int* arr, int size, const char* name) {
+    cout << name << ": ";
+    for (int i = 0; i < size; i++)
+        cout << arr[i] << " ";
+    cout << endl;
+}
+
+
+
+#include <iostream>
+#include "header.h"
+using namespace std;
+
+int main() {
+    int arr1[] = { 3, 8, 5, 2, 7, 4 };
+    int arr2[] = { 6, 1, 9, 10, 3, 12 };
+
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+
+    printArray(arr1, size1, "mas1");
+    printArray(arr2, size2, "mas2");
+
+    int resultSize = 0;
+    int* result = mergeEven(arr1, size1, arr2, size2, resultSize);
+
+    if (result) {
+        printArray(result, resultSize, "parni");
+        delete[] result;
+    } else {
+        cout << "nema\n";
+    }
+
+    return 0;
+}
