@@ -1,0 +1,67 @@
+#include <iostream>
+#include "Header.h"
+using namespace std;
+
+int main()
+{
+	const int N = 50;
+	char str1[N], str2[N];
+	cout << "Enter str1 (max" << N - 1 << "):";
+	cin.getline(str1, N - 1);
+	cout << "Enter str1 (max" << N - 1 << "):";
+	cin.getline(str2, N - 1);
+
+
+	char* my_str1 = new char[strlen(str1) + 1];
+	char* my_str2 = new char[strlen(str2) + 1];
+	copy(my_str1, str1);
+	copy(my_str2, str2);
+
+	my_strcat(my_str1, my_str2);
+	cout << my_str1;
+
+	delete[] my_str1;
+	delete[] my_str2;
+
+
+}
+
+
+
+
+#pragma once
+#include <iostream>
+void my_strcat(char*& str1, char* str2)
+{
+	if (str1 != nullptr && str2 != nullptr) {
+		int size = strlen(str1) + strlen(str2) + 1;
+		char* new_str = new char[size];
+		int k = 0;
+		int i = 0;
+
+		while (str1[i] != '\0') {
+			new_str[k] = str1[i];
+			k++;
+			i++;
+		}
+		i = 0;
+
+		while (str1[i] != '\0') {
+			new_str[k] = str2[i];
+			k++;
+			i++;
+		}
+		new_str[size - 1] = '\0';
+		delete[] str1;
+		str1 = new_str;
+	}
+}
+
+
+void copy(char*& str1, char* str2) {
+	int i;
+	for ( i = 0; i < strlen(str2); i++) {
+		str1[i] = str2[i];
+	}
+	str1[i] = '\0';
+}
