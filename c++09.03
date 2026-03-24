@@ -1,0 +1,46 @@
+#include <iostream>
+#include <Windows.h>
+using namespace std;
+
+double add(double a, double b) { return a + b; }
+double sub(double a, double b) { return a - b; }
+double mul(double a, double b) { return a * b; }
+double divi(double a, double b) {
+    if (b == 0) {
+        cout << "Помилка: ділення на нуль!" << endl;
+        return 0;
+    }
+    return a / b;
+}
+
+int main() {
+    setlocale(LC_ALL, "ukr");
+    SetConsoleCP(1251); 
+    SetConsoleOutputCP(1251);
+
+    double (*operations[])(double, double) = { add, sub, mul, divi };
+
+    int choice;
+    double x, y;
+
+    cout << "=== Калькулятор ===" << endl;
+    cout << "0: Додавання (+)" << endl;
+    cout << "1: Віднімання (-)" << endl;
+    cout << "2: Множення (*)" << endl;
+    cout << "3: Ділення (/)" << endl;
+    cout << "Виберіть операцію: ";
+    cin >> choice;
+
+    if (choice < 0 || choice > 3) {
+        cout << "Невірний вибір!" << endl;
+        return 0;
+    }
+
+    cout << "Введіть два числа: ";
+    cin >> x >> y;
+    double result = operations[choice](x, y);
+
+    cout << "Результат: " << result << endl;
+
+    return 0;
+}
