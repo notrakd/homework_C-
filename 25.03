@@ -1,4 +1,5 @@
 #include <iostream>
+using namespace std;
 
 int compareStrings(char s1[], char s2[]) {
     int i = 0;
@@ -25,7 +26,7 @@ int main() {
     char str2[] = "bob";
 
     int result = compareStrings(str1, str2);
-    std::cout << "Result: " << result << std::endl;
+    cout << "Result: " << result << std::endl;
 
     return 0;
 }
