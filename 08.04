@@ -1,0 +1,36 @@
+#include <iostream>
+using namespace std;
+
+bool checkString(char text[]) {
+    int totalCount = 0;     
+    int consCount = 0;
+    for (int i = 0; text[i] != '\0'; i++) {
+        char letter = text[i];
+        totalCount++;
+        if (letter >= 'A' && letter <= 'Z') {
+            letter = letter + 32;
+        }
+        if ((letter >= 'a' && letter <= 'z') &&
+            !(letter == 'a' || letter == 'e' || letter == 'i' || letter == 'o' || letter == 'u')) {
+            consCount++;
+        }
+    }
+
+    if (totalCount > 10 && consCount > (totalCount / 2)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+int main() {
+    char myString[] = "Blocknnn"; 
+    
+    if (checkString(myString)) {
+        cout << "True" << endl;
+    } else {
+        cout << "False" << endl;
+    }
+
+    return 0;
+}
