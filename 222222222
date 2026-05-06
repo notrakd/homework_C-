@@ -1,0 +1,243 @@
+#include <iostream>
+#include <cstring>
+#include <ctime>
+using namespace std;
+
+typedef unsigned int unit;
+typedef unsigned short ushort;
+const unit N = 50;
+
+struct Date {
+    ushort day;
+    ushort month;
+    ushort year;
+};
+
+struct Product {
+    unit id;
+    char* name;
+    double price;
+    unit count;
+    Date date;
+};
+
+
+Product Create_product()
+{
+    Product pr;
+    static int id = 1;
+    pr.id = id++;
+
+    cout << "Enter price: ";
+    cin >> pr.price;
+
+    cout << "Enter count: ";
+    cin >> pr.count;
+
+    cout << "Enter date (year month day): ";
+    cin >> pr.date.year >> pr.date.month >> pr.date.day;
+
+    cout << "Enter name: ";
+    char name[N];
+    cin.ignore();
+    cin.getline(name, N);
+
+    pr.name = new char[strlen(name) + 1];
+    strcpy(pr.name, name);
+
+    return pr;
+}
+
+void Print_product(Product& pr)
+{
+    cout << "\nID: " << pr.id << endl;
+    cout << "Name: " << pr.name << endl;
+    cout << "Price: " << pr.price << endl;
+    cout << "Count: " << pr.count << endl;
+    cout << "Date: " << pr.date.day << "-" << pr.date.month << "-" << pr.date.year << endl;
+}
+
+void Show_all_product(Product* products, unit size)
+{
+    if (products == nullptr) return;
+
+    for (unit i = 0; i < size; i++)
+        Print_product(products[i]);
+}
+
+
+void Search_id(Product* arr, unit size, unit id)
+{
+    bool found = false;
+
+    for (unit i = 0; i < size; i++)
+    {
+        if (arr[i].id == id)
+        {
+            Print_product(arr[i]);
+            found = true;
+        }
+    }
+
+    if (!found) cout << "Not found\n";
+}
+
+void Search_name(Product* arr, unit size, const char* name)
+{
+    bool found = false;
+
+    for (unit i = 0; i < size; i++)
+    {
+        if (strcmp(arr[i].name, name) == 0)
+        {
+            Print_product(arr[i]);
+            found = true;
+        }
+    }
+
+    if (!found) cout << "Not found\n";
+}
+
+void Search_count(Product* arr, unit size, unit count)
+{
+    bool found = false;
+
+    for (unit i = 0; i < size; i++)
+    {
+        if (arr[i].count == count)
+        {
+            Print_product(arr[i]);
+            found = true;
+        }
+    }
+
+    if (!found) cout << "Not found\n";
+}
+
+void Sort_by_price(Product* arr, unit size)
+{
+    for (unit i = 0; i < size - 1; i++)
+    {
+        for (unit j = 0; j < size - i - 1; j++)
+        {
+            if (arr[j].price < arr[j + 1].price)
+            {
+                swap(arr[j], arr[j + 1]);
+            }
+        }
+    }
+}
+
+
+void Top2_price(Product* arr, unit size)
+{
+    if (size < 2)
+    {
+        cout << "Not enough products\n";
+        return;
+    }
+
+    Sort_by_price(arr, size);
+
+    cout << "\nTOP 1:\n";
+    Print_product(arr[0]);
+
+    cout << "\nTOP 2:\n";
+    Print_product(arr[1]);
+}
+
+void Menu(Product*& products, unit& size)
+{
+    int choice;
+
+    do
+    {
+        cout << "MENU";
+        cout << "1. Create products\n";
+        cout << "2. Show all products\n";
+        cout << "3. Search by name\n";
+        cout << "4. Search by id\n";
+        cout << "5. Search by count\n";
+        cout << "6. Top 2 by price\n";
+        cout << "0. Exit\n";
+        cout << "Choose: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            delete[] products;
+
+            cout << "Enter size: ";
+            cin >> size;
+
+            products = new Product[size];
+
+            for (unit i = 0; i < size; i++)
+                products[i] = Create_product();
+
+            break;
+
+        case 2:
+            Show_all_product(products, size);
+            break;
+
+        case 3:
+        {
+            char name[50];
+            cin.ignore();
+            cout << "Enter name: ";
+            cin.getline(name, 50);
+            Search_name(products, size, name);
+            break;
+        }
+
+        case 4:
+        {
+            unit id;
+            cout << "Enter id: ";
+            cin >> id;
+            Search_id(products, size, id);
+            break;
+        }
+
+        case 5:
+        {
+            unit count;
+            cout << "Enter count: ";
+            cin >> count;
+            Search_count(products, size, count);
+            break;
+        }
+
+        case 6:
+            Top2_price(products, size);
+            break;
+
+        case 0:
+            cout << "Exit...\n";
+            break;
+
+        default:
+            cout << "Wrong choice\n";
+        }
+
+    } while (choice != 0);
+}
+
+int main()
+{
+    srand(time(0));
+
+    Product* products = nullptr;
+    unit size = 0;
+
+    Menu(products, size);
+
+    for (unit i = 0; i < size; i++)
+        delete[] products[i].name;
+
+    delete[] products;
+
+    return 0;
+}
