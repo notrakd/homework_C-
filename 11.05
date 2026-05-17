@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+//зчитує дроби з бінарного файлу та виводить у консоль
+void readAndPrint(const char* filename, unsigned int n)
+{
+    int* numerators = new int[n];
+    int* denominators = new int[n];
+    FILE* file;
+
+    if (fopen_s(&file, filename, "rb") == 0)
+    {
+        fread(reinterpret_cast<void*>(numerators), sizeof(int), n, file);
+        fread(reinterpret_cast<void*>(denominators), sizeof(int), n, file);
+        fclose(file);
+
+        cout << "=== Дроби з файлу ===" << endl;
+        for (unsigned int i = 0; i < n; i++)
+        {
+            cout << numerators[i] << "/" << denominators[i] << endl;
+        }
+    }
+    else
+    {
+        cout << "Помилка: не вдалося відкрити файл для читання." << endl;
+    }
+
+    delete[] numerators;
+    delete[] denominators;
+}
+
+int main()
+{
+    const unsigned int N = 5;
+    const char* filename = "fractions.bin";
+
+    int numerators[N] = { 1, 3, 5, 7, 9 };
+    int denominators[N] = { 2, 4, 6, 8, 10 };
+
+    FILE* file;
+    if (fopen_s(&file, filename, "wb") == 0)
+    {
+        fwrite(reinterpret_cast<void*>(numerators), sizeof(int), N, file);
+        fwrite(reinterpret_cast<void*>(denominators), sizeof(int), N, file);
+        fclose(file);
+        cout << "Дроби успішно записані у файл." << endl;
+    }
+    else
+    {
+        cout << "Помилка: не вдалося відкрити файл для запису." << endl;
+        return 1;
+    }
+    readAndPrint(filename, N);
+
+    return 0;
+}
