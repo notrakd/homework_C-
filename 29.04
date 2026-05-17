@@ -1,0 +1,36 @@
+
+#include <iostream>
+using namespace std;
+
+void saveToFile(const char* fileName, const char* content) {
+    FILE* file;
+    if (fopen_s(&file, fileName, "w") == 0) {
+        fputs(content, file);
+        fclose(file);
+    }
+}
+
+int main() {
+    char allText[1000] = "";
+    char word[50];
+    char fileName[50];
+
+    while (true) {
+        cin >> word;
+
+        if (strcmp(word, "stop") == 0) {
+            break;
+        }
+
+        strcat_s(allText, word);
+        strcat_s(allText, " ");
+    }
+
+    cin >> fileName;
+
+    saveToFile(fileName, allText);
+
+    return 0;
+}
+@notrakd
+Comment
