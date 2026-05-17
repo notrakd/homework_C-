@@ -1,0 +1,56 @@
+#include <iostream>
+using namespace std;
+
+void writeFileWithStats(const char* path) {
+    FILE* file;
+    errno_t code = fopen_s(&file, path, "w");
+
+    if (code != 0) {
+        cout << "Error happened while opening file: " << code << endl;
+        return;
+    }
+
+    int upperCount = 0;
+    int lowerCount = 0;
+    int digitCount = 0;
+
+    char ch;
+    cout << "Enter symbols (Enter 's' to stop):" << endl;
+
+    do {
+        cout << "Symbol: ";
+        ch = getchar();
+        cin.ignore();
+
+        if (ch == 's') {
+            break;
+        }
+
+        fputc(ch, file);
+
+        if (ch >= 'A' && ch <= 'Z') {
+            upperCount++;
+        } else if (ch >= 'a' && ch <= 'z') {
+            lowerCount++;
+        } else if (ch >= '0' && ch <= '9') {
+            digitCount++;
+        }
+
+    } while (true);
+
+    fclose(file);
+    
+    cout << endl;
+    cout << "Статистика" << endl;
+    cout << "Літери верхнього реєстру (A-Z): " << upperCount << endl;
+    cout << "Літери нижнього реєстру (a-z): " << lowerCount << endl;
+    cout << "Цифри (0-9): " << digitCount << endl;
+}
+
+int main() {
+    const char* path_to_file = "../data.txt";
+    writeFileWithStats(path_to_file);
+    return 0;
+}
+@notrakd
+Comment
